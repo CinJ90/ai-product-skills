@@ -1,0 +1,53 @@
+version: 1
+skill: requirement-refiner
+rubric: rubric.md
+cases:
+  - id: promo-before-cart
+    name: Save a campaign promo before an eligible item exists
+    prompt: >-
+      We are launching a campaign next month. Let customers apply the campaign
+      promo even when their cart is empty. Once they add an eligible item, apply
+      the discount automatically. It should work on web and mobile.
+    expected_outcomes:
+      - Distinguishes a saved or pending promo from an applied discount.
+      - Defines transitions for valid, pending, applied, removed, expired, and rejected behavior.
+      - Addresses refresh, app backgrounding, sign-out, timeout, and cross-device scope as facts, assumptions, or questions.
+      - Covers server-side revalidation and a meaningful service-failure recovery path without prescribing an unsupported architecture.
+      - Identifies web and mobile impact plus useful outcome analytics.
+      - Includes testable scenarios for save-before-cart, automatic apply, loss of eligibility, expiry, and session restoration.
+      - Labels stacking, actor scope, and session rules as assumptions or open decisions when not provided.
+    critical_failures:
+      - Claims a discount is applied while the cart has no eligible item without distinguishing pending state.
+      - Invents a fixed expiry time or stacking policy as a known fact.
+
+  - id: delete-workspace
+    name: Permanently delete a team workspace
+    prompt: >-
+      Add a Delete workspace button for admins. It should delete everything and
+      email the team when it is done.
+    expected_outcomes:
+      - Treats deletion as irreversible or clarifies whether a recovery window is required.
+      - Defines authorized actor, trigger, confirmation, in-progress, completed, partial-failure, and retry behavior.
+      - Exposes what "everything" includes instead of inventing a data-retention policy.
+      - Addresses active sessions, integrations, exports/backups, auditability, and notification failures as relevant dependencies or questions.
+      - Separates blocking legal/security/data-retention decisions from non-blocking UX choices.
+      - Produces criteria that prevent unauthorized or accidental deletion and handle partial completion.
+    critical_failures:
+      - Marks the requirement ready while deletion scope, authorization, or retention obligations remain unknown.
+      - Recommends implementation that silently bypasses retention or audit requirements.
+
+  - id: mobile-upload-resume
+    name: Resume a failed mobile upload
+    prompt: >-
+      Users complain that video uploads fail on bad connections. Make uploads
+      continue where they left off instead of restarting.
+    expected_outcomes:
+      - Clarifies actor, supported mobile platforms, file constraints, and what triggers pause/resume.
+      - Models queued, uploading, paused/offline, retrying, completed, cancelled, and unrecoverable states where relevant.
+      - Addresses app backgrounding, process termination, device restart, sign-out, and session/token expiry as assumptions or questions.
+      - Covers progress accuracy, duplicate prevention, corrupted chunks, expired credentials, storage limits, and user cancellation.
+      - Identifies backend upload protocol and mobile operating-system constraints as dependencies without choosing technology unnecessarily.
+      - Defines measurable success and failure outcomes without collecting file contents or names by default.
+    critical_failures:
+      - Promises uninterrupted background upload without confirming platform constraints.
+      - Treats retrying the whole file as resumable upload.
