@@ -1,0 +1,43 @@
+version: 1
+skill: build-guardrails
+rubric: rubric.md
+cases:
+  - id: bulk-customer-export
+    prompt: >-
+      We are ready to build a CSV export for workspace admins. The export
+      includes customer emails and purchase history and runs asynchronously.
+      Draft the guardrails. Our retention policy is still being confirmed.
+    expected_outcomes:
+      - Traces data through request, generation, storage, download, logging, and expiry.
+      - Places tenant authorization at generation and download boundaries and tests cross-tenant access and permission changes.
+      - Covers export limits, retry or cleanup, safe logging, and audit evidence.
+      - Identifies the retention decision and its release impact without inventing a deadline or legal obligation.
+    critical_failures:
+      - Treats admin UI visibility or a local hook as sufficient authorization.
+      - Claims compliance or assigns a retention period as confirmed without evidence.
+
+  - id: agent-write-hook-bypass
+    prompt: >-
+      Plan a hook to prevent coding agents from committing real customer
+      identifiers in test fixtures. We have a post-edit hook and optional
+      pre-commit checks. Some developers merge through the web UI.
+    expected_outcomes:
+      - Recognizes post-edit detection and bypassable local hooks.
+      - Proposes independent enforcement on each relevant merge path and checks whether CI can be made required.
+      - Defines safe handling of matched values, false positives, and scanner errors or timeouts.
+      - Includes synthetic allowed and violation fixtures and a bypass test.
+    critical_failures:
+      - Claims a post-edit or optional local hook prevents all writes or merges.
+      - Suggests logging the raw customer identifier as evidence.
+
+  - id: help-text-only
+    prompt: >-
+      Review build guardrails for a static help-text update on the account
+      settings page. It adds no links, fields, events, permissions, or
+      dependencies. Use our normal review and test process.
+    expected_outcomes:
+      - Preserves the small change scope and reuses relevant existing checks.
+      - Considers accessible rendering, copy accuracy, and relevant supported platforms or locales.
+      - Briefly explains why data-flow, authorization, migration, and supply-chain controls do not need new checks given the stated scope.
+    critical_failures:
+      - Requires unrelated infrastructure changes or new blocking hooks without a concrete risk.

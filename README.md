@@ -7,7 +7,7 @@ Open-source Agent Skills for turning product ambiguity into delivery clarity.
 
 `ai-product-skills` is a practical portfolio project for Product Managers, Product Owners, Business Analysts, QA professionals, and cross-functional delivery teams. Each skill captures a repeatable product workflow in instructions an AI agent can discover and apply.
 
-The first skill, **Requirement Refiner**, turns a short or ambiguous stakeholder request into an implementation-ready requirement without disguising guesses as facts.
+**Requirement Refiner** clarifies what to build and why. **Build Guardrails** uses that context to design the checks and controls the agent needs during implementation.
 
 ## What are Agent Skills?
 
@@ -30,6 +30,7 @@ Unlike a one-off prompt, a skill is versioned, reviewable, reusable, and easy to
 | Skill | Purpose | Status |
 | --- | --- | --- |
 | [`requirement-refiner`](skills/requirement-refiner/SKILL.md) | Convert ambiguous product requests into implementation-ready requirements | Available |
+| [`build-guardrails`](skills/build-guardrails/SKILL.md) | Review Build-phase risks and design agent hooks, CI gates, application controls, and verification | Available |
 
 The Requirement Refiner covers:
 
@@ -53,10 +54,11 @@ Install interactively:
 npx skills add CinJ90/ai-product-skills
 ```
 
-Install only the Requirement Refiner:
+Install a single skill:
 
 ```bash
 npx skills add CinJ90/ai-product-skills --skill requirement-refiner
+npx skills add CinJ90/ai-product-skills --skill build-guardrails
 ```
 
 To inspect the available skills before installing:
@@ -65,7 +67,7 @@ To inspect the available skills before installing:
 npx skills add CinJ90/ai-product-skills --list
 ```
 
-You can also clone the repository and copy [`skills/requirement-refiner`](skills/requirement-refiner) into the skills directory used by your AI agent.
+You can also clone the repository and copy a skill folder from [`skills/`](skills) into the skills directory used by your AI agent.
 
 ## Use
 
@@ -88,12 +90,21 @@ material open questions, and produce testable acceptance criteria.
 
 The skill does not silently invent product policy. When information is missing, it either asks a targeted question or states a bounded assumption so the delivery team can review it.
 
+At the start of Build, pass the refined requirement and relevant repository or policy context to the next skill:
+
+```text
+Use $build-guardrails to review this feature before implementation.
+Propose the controls, where they should run, and how we can verify them.
+Flag decisions that need an owner before we build, merge, or release.
+```
+
 ## Example
 
 See the complete promo flow:
 
 - [Ambiguous stakeholder request](examples/promo-application/request.md)
 - [Implementation-ready output](examples/promo-application/refined-requirement.md)
+- [Build guardrail plan](examples/promo-application/build-guardrails.md)
 
 The example demonstrates a promo captured before the cart contains an eligible item, including pending and applied states, session persistence, revalidation, failure handling, analytics, and web/mobile impact.
 
@@ -103,6 +114,7 @@ The evaluations are deliberately runner-agnostic so they can be used in a manual
 
 - [`evals/requirement-refiner/cases.yaml`](evals/requirement-refiner/cases.yaml) contains realistic ambiguous inputs and observable expectations.
 - [`evals/requirement-refiner/rubric.md`](evals/requirement-refiner/rubric.md) provides a 20-point scoring rubric and pass criteria.
+- Build Guardrails has its own [cases](evals/build-guardrails/cases.yaml) and [rubric](evals/build-guardrails/rubric.md), including checks for bypassable hooks and a low-risk change.
 
 Evaluate the skill's decisions and coverage, not whether it reproduces the example's wording.
 
@@ -114,18 +126,16 @@ ai-product-skills/
 ├── LICENSE
 ├── CONTRIBUTING.md
 ├── skills/
-│   └── requirement-refiner/
-│       ├── SKILL.md
-│       └── references/
-│           └── requirement-template.md
+│   ├── requirement-refiner/
+│   └── build-guardrails/
 ├── examples/
 │   └── promo-application/
 │       ├── request.md
-│       └── refined-requirement.md
+│       ├── refined-requirement.md
+│       └── build-guardrails.md
 └── evals/
-    └── requirement-refiner/
-        ├── cases.yaml
-        └── rubric.md
+    ├── requirement-refiner/
+    └── build-guardrails/
 ```
 
 ## Design principles
