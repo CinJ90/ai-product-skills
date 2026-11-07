@@ -2,6 +2,18 @@
 
 This is a proposed Build handoff based on the [refined promo requirement](refined-requirement.md). The goal is to let shoppers save a promo before they have an eligible item while applying discounts only when eligibility and pricing are confirmed. This example assumes the product team accepts the requirement's session and stacking policies.
 
+## Build-agent operating rules
+
+| Decision | Proposed rule |
+| --- | --- |
+| Allowed | Edit the scoped cart and promo code and run existing local tests with synthetic campaign codes. |
+| Approval required | Ask before adding a dependency, changing shared CI settings, or pushing to a shared branch. |
+| Blocked | Keep real shopper data and live campaign codes out of prompts, fixtures, and logs. Keep tests away from production pricing services. |
+
+The agent checks scope and data use before acting. Enforce file and network limits through host permissions where available. The fixture hook below can check covered file writes. Test with an in-scope fixture edit, a dependency install attempt that requires approval, and an attempt to reach a blocked production endpoint. Use synthetic inputs and an isolated test environment.
+
+## Enforcement and related safeguards
+
 | Risk and timing | Invariant and enforcement | Failure and recovery | Verification and owner |
 | --- | --- | --- | --- |
 | **High · before release.** A shopper receives a stale or unauthorized discount. | On cart recalculation and checkout, the trusted pricing path revalidates the promo against the current cart, shopper, and campaign. Apply a discount only after pricing is confirmed. | On a pricing timeout, preserve the last confirmed total for display with a stale-state message. Defer checkout until repricing succeeds. | Test a valid pending-to-applied transition, an expired or ineligible promo, a stale cart version, and a timeout. Exercise checkout directly through the API. Owner role: pricing engineering. |

@@ -7,20 +7,20 @@ Open-source Agent Skills for turning product ambiguity into delivery clarity.
 
 `ai-product-skills` is a practical portfolio project for Product Managers, Product Owners, Business Analysts, QA professionals, and cross-functional delivery teams. Each skill captures a repeatable product workflow in instructions an AI agent can discover and apply.
 
-**Requirement Refiner** clarifies what to build and why. **Build Guardrails** uses that context to design the checks and controls the agent needs during implementation.
+**Requirement Refiner** clarifies what to build and why. **Build Guardrails** defines what the agent can do, what requires approval, and what is blocked during implementation.
 
 ## What are Agent Skills?
 
 An Agent Skill is a folder of reusable instructions centered on a `SKILL.md` file. The file tells a compatible AI agent when to use the skill, what outcome to produce, and which supporting references to load. Skills can also contain templates, scripts, and other focused resources.
 
-Think of a skill as a portable playbook:
+The two skills work together from intake through the SDLC Build phase.
 
-```text
-Ambiguous request
-       ↓
-Requirement Refiner
-       ↓
-Explicit behavior, states, risks, questions, and testable acceptance criteria
+```mermaid
+flowchart TD
+    A["Stakeholder request"] --> B["Requirement Refiner"]
+    B --> C["Refined requirement with objective, acceptance criteria, and open decisions"]
+    C --> D["Build Guardrails"]
+    D --> E["Agent operating rules covering allowed, approval-required, and blocked actions"]
 ```
 
 Unlike a one-off prompt, a skill is versioned, reviewable, reusable, and easy to improve with examples and evaluations.
@@ -30,7 +30,7 @@ Unlike a one-off prompt, a skill is versioned, reviewable, reusable, and easy to
 | Skill | Purpose | Status |
 | --- | --- | --- |
 | [`requirement-refiner`](skills/requirement-refiner/SKILL.md) | Convert ambiguous product requests into implementation-ready requirements | Available |
-| [`build-guardrails`](skills/build-guardrails/SKILL.md) | Review Build-phase risks and design agent hooks, CI gates, application controls, and verification | Available |
+| [`build-guardrails`](skills/build-guardrails/SKILL.md) | Define Build-phase agent boundaries and how to enforce and verify them | Available |
 
 The Requirement Refiner covers:
 
@@ -94,8 +94,8 @@ At the start of Build, pass the refined requirement and relevant repository or p
 
 ```text
 Use $build-guardrails to review this feature before implementation.
-Propose the controls, where they should run, and how we can verify them.
-Flag decisions that need an owner before we build, merge, or release.
+Define what the agent may do, what needs approval, and what is blocked.
+Suggest how to enforce and test those boundaries, including hooks where supported.
 ```
 
 ## Example

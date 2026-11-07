@@ -1,11 +1,11 @@
 ---
 name: build-guardrails
-description: Design and, when requested, implement risk-based guardrails for a feature entering the SDLC Build phase. Use to turn requirements and risks into agent hooks, repository or CI checks, application controls, and review gates with testable failure behavior.
+description: Define what a coding agent may do, must get approval for, and must avoid during the SDLC Build phase. Use to design build-agent policies, permission boundaries, and hooks, and to identify separate delivery or application controls when relevant.
 ---
 
 # Build Guardrails
 
-Help the build agent preserve the feature's objective and prevent concrete harms while it implements the feature. A guardrail states what must hold, where it is enforced, and how the team can verify it. A hook is one way to run a guardrail in response to an event.
+Define the agent's operating boundaries before implementation. A build-agent guardrail constrains an agent action such as reading data, editing files, running commands, installing dependencies, using the network, or publishing changes. A hook can evaluate an action at a supported event. Delivery gates and application safeguards address separate risks and belong in their own section when relevant.
 
 ## Establish the build context
 
@@ -13,6 +13,16 @@ Help the build agent preserve the feature's objective and prevent concrete harms
 - Identify affected users, sensitive data and where it flows, trust and tenant boundaries, external dependencies, irreversible actions, and who can trigger them. Include the build agent's file, command, credential, and network access when in scope.
 - Inspect relevant repository instructions, existing checks and tests, CI settings available to you, and supplied policies. Confirm the host's supported hook events and enforcement semantics before relying on a specific hook.
 - Distinguish observed controls, confirmed obligations, assumptions, and gaps. Ask focused questions when the answer could change a high-impact control or release decision. Mark unclear legal, contractual, or policy applicability for the appropriate owner to verify.
+
+## Set the agent's operating boundaries
+
+Classify each material action by target, environment, and data sensitivity:
+
+- **Allowed:** The agent can proceed within existing authorization, such as editing scoped files or running local tests with synthetic data.
+- **Approval required:** The agent pauses before the action and asks an authorized person about the exact action and scope, such as downloading a new dependency or pushing to a shared branch.
+- **Blocked:** The agent stops the action and explains the boundary, such as when a tool call would disclose a secret or use production data outside the approved scope.
+
+These classifications are proposed unless supported by existing authority. A plan or hook cannot grant permissions, bypass a platform restriction, or substitute for the required approval. For each rule, name the affected tools and paths, enforcement point, action on violation, and verification. Distinguish instructions the agent is expected to follow from restrictions that a tool or host can enforce.
 
 ## Review and prioritize
 
@@ -36,7 +46,7 @@ Place prevention at the boundary that controls the outcome. Use agent or local c
 
 ## Deliver and verify
 
-- For a planning request, return a prioritized guardrail plan with evidence, open decisions, and residual risk. For an implementation request, implement the in-scope controls using existing tooling and test them locally or in an authorized test environment.
+- For a planning request, lead with the agent's allowed, approval-required, and blocked actions. Include the enforcement and verification plan, open decisions, and residual risk. List related delivery gates and application safeguards separately if applicable. For an implementation request, implement the in-scope controls using existing tooling and test them locally or in an authorized test environment.
 - For hooks, define allowed inputs, exit or response behavior, timeout handling, and actionable feedback. Treat input as data. Keep privileges narrow and avoid recording secrets or sensitive payloads.
 - Verify an allowed path, a violation, and a checker failure or bypass where relevant. Use synthetic data and safe fixtures. Document whether each control prevents, detects, or routes for human review.
 - Describe any exception path with the approver, scope, expiry, and audit trail. Treat changes to approval policies, shared CI settings, production controls, and live data as separate actions that require authorization.
