@@ -6,6 +6,7 @@
 
 ## Requirement summary
 
+- **Objective (hypothesis):** Campaign shoppers may leave before adding an eligible item if they have to remember and re-enter the promo. Letting them save it earlier could help more of them reach a cart with the discount applied.
 - **User outcome:** A shopper can save a valid campaign promo while the cart has no eligible items and receive the discount automatically after adding an eligible item in the same shopping session.
 - **Business outcome:** Reduce campaign-to-cart friction while measuring how often saved promos lead to eligible cart additions and successful discount application.
 - **In scope:** Promo capture, validation, pending and applied states, automatic revalidation after cart changes, session persistence, web and mobile behavior, failure feedback, and analytics.
@@ -188,6 +189,7 @@ Do not include raw promo codes, customer-entered text, or direct personal identi
 
 | Priority | Question | Decision affected | Suggested owner |
 | --- | --- | --- | --- |
+| Non-blocking | What problem prompted the request, and what outcome would count as success for the campaign? | Confirms the objective and whether pending-to-applied rate is the right success signal | Product |
 | Non-blocking | Are A1–A4 accepted as product policy for this release? | Actor scope, session behavior, validation, and stacking | Product |
 | Non-blocking | Which existing session timeout applies on web and mobile? | Test setup and expiry timing | Product / Engineering |
 | Non-blocking | What final analytics names and reason categories match the data taxonomy? | Instrumentation contract | Data / Product |

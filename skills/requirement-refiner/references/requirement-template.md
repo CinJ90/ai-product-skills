@@ -8,6 +8,7 @@ Choose **Ready**, **Ready with assumptions**, or **Needs decisions**, followed b
 
 ## Requirement summary
 
+- **Objective (why build this?):** The problem or opportunity, who it affects, and what should improve. Mark an unconfirmed objective as a hypothesis or record it as an open question.
 - **User outcome:**
 - **Business outcome:**
 - **In scope:**
@@ -61,6 +62,8 @@ Define what survives refresh, navigation, sign-in/sign-out, app backgrounding, d
 Include affected customer surfaces, internal tools, APIs, notifications, or operational processes when relevant.
 
 ## Analytics and measurement
+
+Connect any proposed success signal to the objective. Include a baseline or target only if it is known or clearly labeled as a proposal.
 
 | Event or measure | When captured | Required properties | Purpose |
 | --- | --- | --- | --- |

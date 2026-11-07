@@ -1,6 +1,6 @@
 ---
 name: requirement-refiner
-description: Turn ambiguous product requests into implementation-ready requirements for product, design, engineering, QA, and analytics. Use when a feature request, ticket, stakeholder ask, or early concept lacks explicit behavior, states, failure handling, platform scope, or testable acceptance criteria.
+description: Turn ambiguous product requests into implementation-ready requirements for product, design, engineering, QA, and analytics. Use when a feature request, ticket, stakeholder ask, or early concept lacks a clear objective, explicit behavior, or testable acceptance criteria.
 ---
 
 # Requirement Refiner
@@ -19,8 +19,8 @@ Transform an incomplete product request into a shared, testable definition of th
 
 ## Refine the request
 
-1. Restate the user outcome, business outcome, and boundaries in plain language.
-2. Extract known facts and list any assumptions needed to make progress.
+1. Establish the **objective (why build this?)**. Capture the problem or opportunity, who it affects, and what should improve. Use what the requester already provided and ask one focused question about what is missing. If both the problem and outcome are unclear, ask “What problem should this feature solve, and what outcome would tell us it worked?” If an answer is unavailable, carry the question into the draft and label any inferred objective as a hypothesis. Treat the missing objective as blocking when it materially affects scope or the choice of approach.
+2. State the user outcome, business outcome, and scope in plain language. Extract known facts and list any assumptions needed to make progress.
 3. Resolve or expose the following dimensions:
    - actor;
    - trigger;
@@ -62,6 +62,7 @@ Before returning the refined requirement, verify that:
 - every required dimension is addressed or explicitly marked not specified/applicable;
 - state transitions and persistence boundaries are unambiguous;
 - failure behavior tells the user what happened and what they can do next;
+- the objective is stated or explicitly open, and any proposed success signal connects to it without inventing a baseline or target;
 - analytics have a purpose and avoid unnecessary sensitive data;
 - dependencies identify the capability or decision required, without inventing a team owner;
 - acceptance criteria are observable and collectively cover the important behavior; and

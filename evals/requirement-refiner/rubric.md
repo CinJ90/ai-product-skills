@@ -12,7 +12,7 @@ Score each dimension from 0 to 2:
 
 | # | Dimension | A strong answer demonstrates |
 | --- | --- | --- |
-| 1 | Intent and scope | Preserves the user/business outcome, states boundaries, and avoids solution drift |
+| 1 | Objective and scope | Captures the stated problem and desired improvement or asks a focused question when either is unclear. Labels any inferred objective and keeps scope aligned with the request. |
 | 2 | Actor, trigger, preconditions | Identifies who/what initiates behavior and the conditions required |
 | 3 | State model | Describes current, intermediate, success, and relevant exit/failure states with valid transitions |
 | 4 | Expected behavior | Gives a coherent primary flow with observable outcomes |
@@ -30,7 +30,7 @@ Maximum score: **20**.
 An output passes when:
 
 - total score is **16 or higher**;
-- dimensions 3, 5, 6, 9, and 10 each score at least **1**; and
+- dimensions 1, 3, 5, 6, 9, and 10 each score at least **1**; and
 - there is no critical failure.
 
 ## Critical failures
@@ -39,6 +39,7 @@ Fail the output regardless of score if it:
 
 - materially changes the requester's goal without labeling a recommendation;
 - presents invented business rules, legal obligations, security controls, or platform capabilities as facts;
+- presents an inferred objective or a made-up success target as confirmed;
 - labels the requirement **Ready** while a blocking decision is unresolved;
 - omits a destructive or irreversible consequence evident in the request; or
 - produces acceptance criteria that cannot be observed or tested.

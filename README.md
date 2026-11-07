@@ -33,6 +33,7 @@ Unlike a one-off prompt, a skill is versioned, reviewable, reusable, and easy to
 
 The Requirement Refiner covers:
 
+- the objective: why the feature is needed and what should improve;
 - actor, trigger, and preconditions;
 - current state, target state, and state transitions;
 - expected behavior and failure paths;

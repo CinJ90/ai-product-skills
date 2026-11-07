@@ -9,6 +9,7 @@ cases:
       promo even when their cart is empty. Once they add an eligible item, apply
       the discount automatically. It should work on web and mobile.
     expected_outcomes:
+      - Asks what problem prompted the request and what should improve, or records that question in the draft if an answer is unavailable.
       - Distinguishes a saved or pending promo from an applied discount.
       - Defines transitions for valid, pending, applied, removed, expired, and rejected behavior.
       - Addresses refresh, app backgrounding, sign-out, timeout, and cross-device scope as facts, assumptions, or questions.
@@ -42,6 +43,7 @@ cases:
       Users complain that video uploads fail on bad connections. Make uploads
       continue where they left off instead of restarting.
     expected_outcomes:
+      - Carries the stated problem of failed uploads on unreliable connections into the objective without asking the requester to repeat it.
       - Clarifies actor, supported mobile platforms, file constraints, and what triggers pause/resume.
       - Models queued, uploading, paused/offline, retrying, completed, cancelled, and unrecoverable states where relevant.
       - Addresses app backgrounding, process termination, device restart, sign-out, and session/token expiry as assumptions or questions.
